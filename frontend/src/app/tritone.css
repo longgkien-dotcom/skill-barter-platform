@@ -1,0 +1,744 @@
+/* // [PHỐI MÀU TRẮNG - ĐEN - XANH NAVY]: Workspace 60% trắng/alabaster, navigation và video 30% obsidian; navy chỉ dẫn CTA, chọn và focus. */
+/* // [LUỒNG ĐĂNG NHẬP & ĐĂNG XUẤT BẮT BUỘC]: Không có back link trong app; logout luôn rõ trong hai vùng chrome, modal xác nhận đăng nhập ở Landing. */
+/* // [KẾT NỐI API]: Chỉ đổi trình bày, mọi badge và số dư tiếp tục lấy dữ liệu backend hiện có; không tạo token hoặc quyền mới bằng CSS. */
+/* // [CẨN THẬN KHI SỬA]: Biến màu chrome/video phải cục bộ để chữ trắng không tràn vào card trắng; button primary luôn đặt white text tường minh. */
+/* // [KIẾN TRÚC & THIẾT KẾ]: Nạp cuối, giữ geometry/responsive của các file trước; theme frame đen và vùng nội dung sáng dùng token riêng. */
+/* // [HIỆU ỨNG CHUYỂN ĐỘNG]: Giữ reveal/hover hiện có; bỏ ambient glow xanh diện rộng để giảm mệt mắt. */
+/* // [GIAO DIỆN & LUỒNG NGƯỜI DÙNG]: Form và bảng dùng nền trắng, metadata slate; radio account có focus và selected rõ trước khi bấm đăng nhập. */
+/* // [ĐIỂM MỞ RỘNG]: Thêm surface mới qua token, không thêm màu navy nền lớn ngoài frame hoặc action state. */
+.mode-app {
+  background: #f4f6f9;
+}
+.mode-app .live-workspace {
+  background: #f4f6f9;
+}
+.mode-app .header,
+.mode-app .sidebar,
+.mode-app .online-video {
+  color-scheme: dark;
+  --bg-canvas: #090b10;
+  --bg-subtle: #11151f;
+  --bg-surface: #11151f;
+  --bg-raised: #151b27;
+  --heading: #ffffff;
+  --body: #cbd5e1;
+  --metadata: #94a3b8;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --section-border: #1e293b;
+  --card-border: #293549;
+  --primary-text: #bfdbfe;
+  --primary-wash: rgba(37, 99, 235, 0.18);
+  --emerald-ink: #6ee7b7;
+  --emerald-wash: rgba(5, 150, 105, 0.12);
+  --emerald-border: rgba(52, 211, 153, 0.23);
+  --success-text: #6ee7b7;
+  --amber-ink: #fbbf24;
+  --amber-wash: rgba(217, 119, 6, 0.12);
+  --warning-text: #fbbf24;
+  --rose-ink: #fda4af;
+  --rose-wash: rgba(225, 29, 72, 0.12);
+  --rose-border: rgba(251, 113, 133, 0.25);
+  --identity-avatar-bg: #181f2d;
+  --identity-avatar-ink: #e0e7ff;
+  color: var(--body);
+}
+.mode-app .live-workspace .sidebar {
+  background: #090b10;
+  border-right: 1px solid #1e293b;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #090b10;
+}
+.mode-app .live-workspace .header {
+  background: #0c0f17;
+  border-bottom: 1px solid #1e293b;
+}
+.mode-app .header-workspace-label {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f8fafc;
+}
+.mode-app .header-workspace-label > svg {
+  color: #cbd5e1;
+}
+.mode-app .header-workspace-label small {
+  display: block;
+  color: #94a3b8;
+  font-size: 9px;
+  font-weight: 400;
+  margin-top: 3px;
+}
+.mode-app .identity-avatar-core {
+  background: var(--identity-avatar-bg);
+  color: var(--identity-avatar-ink);
+}
+.mode-app .header .identity-capsule {
+  background: #141923;
+  border-color: #293549;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+.mode-app .header .identity-capsule:hover,
+.mode-app .header .identity-capsule[aria-expanded="true"] {
+  background: #1a2230;
+  border-color: #43516a;
+}
+.mode-app .header .identity-popover {
+  background: #0c0f17;
+  border-color: #293549;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+}
+.mode-app .header .identity-name,
+.mode-app .header .identity-popover-heading b {
+  color: #fff;
+}
+.mode-app .header .identity-meta,
+.mode-app .header .identity-role,
+.mode-app .header .identity-chevron,
+.mode-app .header .identity-popover-heading > span {
+  color: #94a3b8;
+}
+.mode-app .header .identity-reputation,
+.mode-app .header .identity-option-credit {
+  color: #f2cf8e;
+}
+.mode-app .header .identity-option-credit small {
+  color: #a8a29e;
+}
+.mode-app .header .identity-option {
+  background: transparent;
+}
+.mode-app .header .identity-option:hover,
+.mode-app .header .identity-option[aria-selected="true"] {
+  background: #172033;
+  border-color: #334565;
+}
+.mode-app .header .identity-verified-icon {
+  color: #6ee7b7;
+}
+.mode-app .header .wallet-strip strong {
+  color: #fff;
+}
+.mode-app .header .standard-meter strong {
+  color: #f3cf8c;
+}
+.mode-app .header .trust {
+  background: rgba(217, 119, 6, 0.1);
+  border-color: rgba(217, 119, 6, 0.23);
+  color: #f1cf91;
+}
+.mode-app .header .meter {
+  background: #253042;
+}
+.mode-app .header .icon-button {
+  color: #cbd5e1;
+}
+.mode-app .sidebar .brand b {
+  color: #fff;
+}
+.mode-app .sidebar .brand-mark {
+  background: #1e3a8a;
+  color: #fff;
+}
+.mode-app .sidebar .brand-period {
+  color: #93c5fd;
+}
+.mode-app .sidebar .brand small,
+.mode-app .sidebar .sidebar-section,
+.mode-app .sidebar .sidebar-foot {
+  color: #94a3b8;
+}
+.mode-app .sidebar .nav-item {
+  color: #aab6ca;
+}
+.mode-app .sidebar .nav-item:hover {
+  background: #121824;
+}
+.mode-app .sidebar .nav-item.active {
+  background: #172442;
+  border-color: #293b62;
+  color: #fff;
+  box-shadow: inset 2px 0 0 #2563eb;
+}
+.mode-app .sidebar .nav-item small {
+  background: #243351;
+  color: #dbeafe;
+}
+.mode-app .sidebar .fairness {
+  background: #11151f;
+  border-color: #1e293b;
+  color: #a7b4c9;
+}
+.mode-app .sidebar .fairness h3 {
+  color: #f8fafc;
+}
+.mode-app .sidebar .fairness p {
+  color: #94a3b8;
+}
+.mode-app .sidebar .fairness button {
+  color: #dbeafe;
+}
+.mode-app .sidebar .connection.online {
+  color: #6ee7b7;
+}
+.mode-app .sidebar .sidebar-foot {
+  border-color: #1e293b;
+}
+.mode-app .profile-logout,
+.mode-app .sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 8px;
+  color: #fda4af;
+  font-size: 11px;
+  text-align: left;
+}
+.mode-app .profile-logout:hover:not(:disabled),
+.mode-app .sidebar-logout:hover:not(:disabled) {
+  background: rgba(225, 29, 72, 0.09);
+  border-color: rgba(251, 113, 133, 0.2);
+}
+.mode-app .sidebar-logout {
+  border-top: 1px solid #1e293b;
+  border-radius: 0;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+.mode-app :is(button, a, summary):focus-visible,
+.mode-story :is(button, a, input):focus-visible {
+  outline-color: #2563eb;
+}
+.mode-app :is(input, select, textarea):focus,
+.mode-story .modal input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+.mode-app .workspace-section,
+.mode-app .panel,
+.mode-app .ledger-panel {
+  backdrop-filter: none;
+}
+.mode-app .panel.nearby-panel,
+.mode-app .session-controls,
+.mode-app .contract-details,
+.mode-app .discovery-note,
+.mode-app .info-note,
+.mode-app .escrow-summary {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+.mode-app .discovery-note strong {
+  color: #090b10;
+}
+.mode-app .discovery-note .note-icon {
+  background: #eef2f7;
+  color: #475569;
+}
+.mode-app .text-button,
+.mode-app .skill-book {
+  color: #1e3a8a;
+}
+.mode-app .button.primary,
+.mode-app .online-finish {
+  color: #fff;
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+}
+.mode-app .button.primary:hover:not(:disabled) {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+.mode-app .button.danger {
+  background: #e11d48;
+  color: white;
+  border-color: #e11d48;
+}
+.mode-app .button:disabled,
+.mode-app .dashboard-main button:disabled {
+  background: #e9edf3;
+  color: #64748b;
+  border-color: #e2e8f0;
+  opacity: 0.7;
+}
+.mode-app .discovery-search,
+.mode-app .discovery-filter-controls select,
+.mode-app .discovery-category-pills button {
+  background: #fff;
+}
+.mode-app .discovery-modebar {
+  background: #fff;
+  box-shadow: var(--card-shadow);
+}
+.mode-app .discovery-modebar > button {
+  color: #475569;
+}
+.mode-app .discovery-modebar > button[aria-pressed="true"] {
+  color: #fff;
+  background: #1e3a8a;
+}
+.mode-app .discovery-modebar > button[aria-pressed="true"] small {
+  color: #dbeafe;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.mode-app .discovery-modebar small {
+  color: #475569;
+  border-color: #cbd5e1;
+}
+.mode-app .discovery-category-pills button[aria-pressed="true"] {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+.mode-app .skill-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(30, 58, 138, 0.36),
+    transparent
+  );
+  height: 1px;
+}
+.mode-app .skill-card .category-label {
+  color: #64748b;
+}
+.mode-app .skill-icon {
+  background: #f1f5f9;
+  color: #475569;
+}
+.mode-app .skill-rate {
+  color: #92400e;
+}
+.mode-app .skill-book:hover:not(:disabled) {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+  color: #fff;
+}
+.mode-app .zone-art,
+.mode-app .zone-art-1,
+.mode-app .zone-art-2 {
+  background: #f1f5f9;
+}
+.mode-app .zone-art > svg {
+  color: #64748b;
+}
+.mode-app .zone-art:before,
+.mode-app .zone-art:after {
+  background: #e2e8f0;
+  border-color: #f8fafc;
+}
+.mode-app .ticket-line:before,
+.mode-app .ticket-line:after {
+  background: white;
+}
+.mode-app .modal,
+.mode-app .modal-header {
+  background: white;
+  color: #475569;
+}
+.mode-app .online-video {
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(30, 58, 138, 0.13),
+      transparent 65%
+    ),
+    #0c0f17;
+  border-color: #1e293b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.mode-app .online-video .identity-name {
+  color: #fff;
+}
+.mode-app .online-video .identity-meta,
+.mode-app .online-video .identity-role {
+  color: #94a3b8;
+}
+.mode-app .online-video-top,
+.mode-app .online-school {
+  color: #cbd5e1;
+}
+.mode-app .online-video-top > span {
+  color: #cbd5e1;
+}
+.mode-app .online-video-avatar .identity-avatar-core {
+  background: #161f31;
+  color: #e0e7ff;
+}
+.mode-app .online-waveform i {
+  background: #cbd5e1;
+}
+.mode-app .online-media-controls button {
+  background: #141d2c;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+.mode-app .online-media-controls button[aria-pressed="false"] {
+  background: #3c1622;
+  color: #fda4af;
+  border-color: #7f1d3b;
+}
+.mode-app .online-camera-off {
+  color: #94a3b8;
+}
+.mode-app .online-message p {
+  background: #f1f5f9;
+  color: #090b10;
+  border-color: #e2e8f0;
+}
+.mode-app .online-message.from-self p {
+  background: #eef2ff;
+  color: #1e3a8a;
+  border-color: #dbe4fa;
+}
+.mode-app .online-message.from-system p {
+  background: #f8fafc;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+.mode-app .online-chat,
+.mode-app .online-chat-heading,
+.mode-app .online-chat-form {
+  background: #fff;
+}
+.mode-app .online-clock b,
+.mode-app .online-finished-stats b {
+  color: #090b10;
+}
+.mode-app .online-escrow {
+  color: #047857;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.mode-app .online-contract-strip.is-pinned {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+.mode-app .online-rating button {
+  color: #d97706;
+  background: transparent;
+}
+.mode-app .online-rating-label {
+  color: #92400e;
+}
+.mode-app .online-role-picker button[aria-pressed="true"],
+.mode-app .online-duration button[aria-pressed="true"] {
+  background: #f8faff;
+  border-color: #1e3a8a;
+  box-shadow: 0 0 0 1px #1e3a8a;
+  color: #475569;
+}
+.mode-app .online-chat-form button {
+  background: #1e3a8a;
+  color: #fff;
+  border-color: #1e3a8a;
+}
+.mode-app .online-radar-scan > span,
+.mode-app .online-orbit-center {
+  background: #1e3a8a;
+  color: #fff;
+  border-color: #c7d6f2;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
+}
+.mode-app .online-orbit-preview > i {
+  border-color: #e2e8f0;
+}
+.mode-app .online-orbit-partner {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+.mode-app .online-orbit-you,
+.mode-app .online-video-avatar .identity-avatar {
+  box-shadow: none;
+}
+
+/* // [PHỐI MÀU TRẮNG - ĐEN - XANH NAVY]: Story trắng xen bento đen; hero, kính và horizon giữ nguyên sự kịch tính ở đầu/cuối trang. */
+.mode-story {
+  background: #f4f6f9;
+  --primary: #1e3a8a;
+  --primary-hover: #2563eb;
+  --story-line: #e2e8f0;
+}
+.mode-story .hero-primary,
+.mode-story .site-start {
+  background: #1e3a8a;
+  border-color: #2563eb;
+  color: #fff;
+}
+.mode-story .hero-primary:hover,
+.mode-story .site-start:hover:not(:disabled),
+.mode-story .portal-actions .story-dark-pill:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+.mode-story .story-values-strip,
+.mode-story .story-section {
+  --heading: #090b10;
+  --body: #475569;
+  --muted: #64748b;
+  --metadata: #64748b;
+  --bg-glass: #fff;
+  --bg-surface: #fff;
+  --bg-subtle: #f8fafc;
+  --border: #e2e8f0;
+  --primary-text: #1e3a8a;
+  --primary-border: #c7d6f2;
+  --primary-wash: rgba(37, 99, 235, 0.06);
+  --emerald-ink: #047857;
+  --rose-ink: #be123c;
+  --amber-ink: #92400e;
+  color: #475569;
+}
+.mode-story .story-section::before {
+  background: none;
+}
+.mode-story .story-section h2,
+.mode-story .story-section h3 {
+  color: #090b10;
+}
+.mode-story .story-section h2 em {
+  color: #475569;
+}
+.mode-story .story-values-strip > div,
+.mode-story .story-values-strip > span {
+  color: #475569;
+}
+.mode-story .story-stat,
+.mode-story .origin-solution {
+  background: #fff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.06);
+}
+.mode-story .story-stat > strong {
+  color: #090b10;
+}
+.mode-story .story-stat-icon {
+  background: #f1f5f9;
+  color: #475569;
+}
+.mode-story .origin-solution h3,
+.mode-story .origin-solution h3 em {
+  color: #090b10;
+}
+.mode-story .origin-solution li {
+  color: #475569;
+  border-color: #e2e8f0;
+}
+.mode-story .origin-solution li b {
+  color: #090b10;
+}
+.mode-story .origin-solution .origin-pill {
+  color: #047857;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.mode-story .origin-solution .origin-number,
+.mode-story .origin-solution-foot {
+  color: #64748b;
+}
+.mode-story .origin-problem,
+.mode-story .timeline-preview,
+.mode-story .story-bento-card {
+  --heading: #fff;
+  --body: #cbd5e1;
+  --muted: #94a3b8;
+  --metadata: #94a3b8;
+  --bg-glass: #0c0f17;
+  --bg-surface: #11151f;
+  --bg-subtle: #151b27;
+  --border: #293549;
+  --primary-text: #bfdbfe;
+  --primary-wash: rgba(37, 99, 235, 0.16);
+  --primary-border: #334565;
+  --emerald-ink: #6ee7b7;
+  --rose-ink: #fda4af;
+  --amber-ink: #fbbf24;
+  background: #0c0f17;
+  border-color: #293549;
+  color: #cbd5e1;
+  box-shadow: 0 12px 30px -15px rgba(15, 23, 42, 0.22);
+}
+.mode-story .origin-problem h3,
+.mode-story .story-bento-card h3 {
+  color: #fff;
+}
+.mode-story .story-bento-card h3 em {
+  color: #94a3b8;
+}
+.mode-story .timeline-preview > strong {
+  color: #fff;
+}
+.mode-story .story-timeline-step {
+  color: #475569;
+}
+.mode-story .story-timeline-step h3 {
+  color: #090b10;
+}
+.mode-story .timeline-step-number,
+.mode-story .timeline-tags > span {
+  background: #fff;
+  border-color: #e2e8f0;
+  color: #64748b;
+}
+.mode-story .is-active .timeline-step-number {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+  color: #fff;
+}
+.mode-story .story-timeline-step:before {
+  background: #e2e8f0;
+}
+.mode-story .time-exchange-mark,
+.mode-story .timeline-label {
+  color: #1e3a8a;
+}
+.mode-story .cap-preview {
+  background: #11151f;
+  border-color: #293549;
+}
+.mode-story .story-bridge {
+  border-color: #1e293b;
+}
+.mode-story .story-bridge h2 {
+  color: #fff;
+}
+.mode-story .story-bridge h2 em {
+  color: #cbd5e1;
+}
+.mode-story .story-bridge .story-eyebrow,
+.mode-story .story-bridge > div > p {
+  color: #cbd5e1;
+}
+.mode-story .portal-actions .story-dark-pill {
+  color: white;
+  background: #1e3a8a;
+  border-color: #2563eb;
+}
+
+/* // [LUỒNG ĐĂNG NHẬP & ĐĂNG XUẤT BẮT BUỘC]: Modal chỉ chọn hồ sơ, nút submit riêng mới tạo phiên; không tồn tại đường vào app từ nút demo phụ. */
+.mode-story .modal {
+  color-scheme: light;
+  --heading: #090b10;
+  --body: #475569;
+  --muted: #64748b;
+  --bg-surface: #fff;
+  --bg-subtle: #f8fafc;
+  --border: #e2e8f0;
+  --primary-text: #1e3a8a;
+  --primary-wash: #eef2ff;
+  --primary-border: #c7d6f2;
+  --emerald-ink: #047857;
+  --rose-ink: #be123c;
+  --rose-wash: #fff1f2;
+  --rose-border: #fecdd3;
+  background: #fff;
+  color: #475569;
+  border-color: #e2e8f0;
+  backdrop-filter: none;
+}
+.mode-story .modal .modal-header {
+  background: #fff;
+  border-color: #e2e8f0;
+}
+.mode-story .modal input {
+  background: #fff;
+  color: #090b10;
+  border-color: #cbd5e1;
+}
+.mode-story .modal .identity-name {
+  color: #090b10;
+}
+.mode-story .modal .identity-meta,
+.mode-story .modal .identity-role {
+  color: #64748b;
+}
+.mode-story .modal .identity-reputation {
+  color: #92400e;
+}
+.mode-story .modal .identity-avatar-core {
+  background: #eef2ff;
+  color: #1e3a8a;
+}
+.mode-story .student-login-emblem {
+  color: #1e3a8a;
+}
+.mode-story .student-login-form .student-account {
+  cursor: pointer;
+  position: relative;
+  flex-direction: row;
+  padding: 13px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+}
+.mode-story .student-account:hover,
+.mode-story .student-account[data-selected="true"] {
+  background: #f8fafc;
+  border-color: #93acd6;
+}
+.mode-story .student-account:focus-within {
+  outline: 3px solid rgba(37, 99, 235, 0.18);
+  outline-offset: 1px;
+}
+.mode-story .student-account-check {
+  width: 20px;
+  min-height: 20px;
+  display: grid;
+  place-items: center;
+  color: #1e3a8a;
+  flex-shrink: 0;
+}
+.mode-story .student-login-selection {
+  font-size: 11px;
+  color: #475569;
+}
+.mode-story .student-login-note {
+  font-size: 10px;
+  color: #64748b;
+}
+.mode-story .student-login-submit {
+  width: 100%;
+  background: #1e3a8a;
+  color: white;
+  border-color: #1e3a8a;
+  min-height: 48px;
+  font-size: 12px;
+}
+.mode-story .student-login-submit:hover:not(:disabled) {
+  background: #2563eb;
+}
+.mode-story .student-login-submit:disabled {
+  background: #e2e8f0;
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+.mode-story .student-login-search > span {
+  border-color: #cbd5e1;
+  background: #fff;
+}
+@media (max-width: 1100px) {
+  .mode-app .header-workspace-label {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .mode-app .sidebar .nav-item.active {
+    box-shadow: inset 0 -2px 0 #2563eb;
+  }
+  .mode-app .header .wallet-strip {
+    border-color: #1e293b;
+  }
+  .mode-story .student-login-submit {
+    font-size: 11px;
+    padding-inline: 12px;
+  }
+}

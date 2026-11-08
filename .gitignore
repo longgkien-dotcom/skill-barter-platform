@@ -1,0 +1,26 @@
+﻿# Dependencies and generated output (all workspace packages)
+node_modules/
+.next/
+dist/
+out/
+coverage/
+.turbo/
+.vercel/
+*.tsbuildinfo
+
+# Local secrets; keep sanitized templates versioned
+.env
+.env.*
+!.env.example
+!.env.*.example
+backend/.env
+
+# Local design reference collections
+/ui-ux-pro-max-skill/
+/awesome-design-md/
+
+# Machine files and logs
+.DS_Store
+Thumbs.db
+*.log
+*.pem

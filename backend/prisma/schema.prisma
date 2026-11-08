@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SkillType {
+  OFFER
+  NEED
+}
+
+enum ProficiencyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum SessionStatus {
+  REQUESTED
+  ESCROWED
+  IN_PROGRESS
+  COMPLETED
+  DISPUTED
+  CANCELLED
+}
+
+enum CreditType {
+  STANDARD
+  PREMIUM
+}
+
+enum TransactionType {
+  EARN
+  SPEND
+  ESCROW_LOCK
+  ESCROW_REFUND
+  TOPUP
+  REDEEM_VOUCHER
+}
+
+enum DisputeStatus {
+  PENDING
+  RESOLVED_TEACHER_WINS
+  RESOLVED_STUDENT_WINS
+}
+
+enum TribunalVoteChoice {
+  TEACHER
+  STUDENT
+}
+
+model User {
+  id                String         @id @default(uuid()) @db.Uuid
+  email             String         @unique
+  full_name         String
+  avatar_url        String?
+  is_verified       Boolean        @default(false)
+  standard_balance  Int            @default(0)
+  premium_balance   Int            @default(0)
+  trust_score       Float          @default(5.0)
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+  skills            Skill[]
+  teaching_sessions Session[]      @relation("SessionTeacher")
+  learning_sessions Session[]      @relation("SessionStudent")
+  transactions      Transaction[]
+  reviews_given     Review[]       @relation("ReviewReviewer")
+  reviews_received  Review[]       @relation("ReviewReviewee")
+  disputes          Dispute[]      @relation("DisputeComplainant")
+  tribunal_votes    TribunalVote[]
+}
+
+model Skill {
+  id                String           @id @default(uuid()) @db.Uuid
+  user_id           String           @db.Uuid
+  skill_type        SkillType
+  category          String
+  title             String
+  proficiency_level ProficiencyLevel
+  is_active         Boolean          @default(true)
+  user              User             @relation(fields: [user_id], references: [id])
+  sessions          Session[]
+}
+
+model SafeZone {
+  id           String    @id @default(uuid()) @db.Uuid
+  name         String
+  address      String
+  latitude     Float
+  longitude    Float
+  qr_code_hash String
+  sessions     Session[]
+}
+
+model Session {
+  id              String        @id @default(uuid()) @db.Uuid
+  teacher_id      String        @db.Uuid
+  student_id      String        @db.Uuid
+  skill_id        String        @db.Uuid
+  safe_zone_id    String        @db.Uuid
+  micro_contract  Json
+  scheduled_start DateTime
+  scheduled_end   DateTime
+  cost_credits    Int
+  status          SessionStatus
+  proof_image_url String?
+  created_at      DateTime      @default(now())
+  teacher         User          @relation("SessionTeacher", fields: [teacher_id], references: [id])
+  student         User          @relation("SessionStudent", fields: [student_id], references: [id])
+  skill           Skill         @relation(fields: [skill_id], references: [id])
+  safe_zone       SafeZone      @relation(fields: [safe_zone_id], references: [id])
+  transactions    Transaction[]
+  reviews         Review[]
+  disputes        Dispute[]
+}
+
+model Transaction {
+  id               String          @id @default(uuid()) @db.Uuid
+  user_id          String          @db.Uuid
+  session_id       String?         @db.Uuid
+  amount           Int
+  credit_type      CreditType
+  transaction_type TransactionType
+  expires_at       DateTime?
+  created_at       DateTime        @default(now())
+  user             User            @relation(fields: [user_id], references: [id])
+  session          Session?        @relation(fields: [session_id], references: [id])
+}
+
+model Review {
+  id              String   @id @default(uuid()) @db.Uuid
+  session_id      String   @db.Uuid
+  reviewer_id     String   @db.Uuid
+  reviewee_id     String   @db.Uuid
+  prep_score      Int
+  attitude_score  Int
+  knowledge_score Int
+  comment         String   @db.Text
+  is_flagged      Boolean  @default(false)
+  created_at      DateTime @default(now())
+  session         Session  @relation(fields: [session_id], references: [id])
+  reviewer        User     @relation("ReviewReviewer", fields: [reviewer_id], references: [id])
+  reviewee        User     @relation("ReviewReviewee", fields: [reviewee_id], references: [id])
+
+  @@unique([session_id, reviewer_id])
+}
+
+model Dispute {
+  id                String         @id @default(uuid()) @db.Uuid
+  session_id        String         @unique @db.Uuid
+  complainant_id    String         @db.Uuid
+  reason            String         @db.Text
+  votes_for_teacher Int            @default(0)
+  votes_for_student Int            @default(0)
+  status            DisputeStatus
+  created_at        DateTime       @default(now())
+  session           Session        @relation(fields: [session_id], references: [id])
+  complainant       User           @relation("DisputeComplainant", fields: [complainant_id], references: [id])
+  votes             TribunalVote[]
+}
+
+model TribunalVote {
+  id         String             @id @default(uuid()) @db.Uuid
+  dispute_id String             @db.Uuid
+  voter_id   String             @db.Uuid
+  choice     TribunalVoteChoice
+  created_at DateTime           @default(now())
+  dispute    Dispute            @relation(fields: [dispute_id], references: [id])
+  voter      User               @relation(fields: [voter_id], references: [id])
+
+  @@unique([dispute_id, voter_id])
+}

@@ -1,0 +1,132 @@
+/* // [BETA & LƯU TRẠNG THÁI]: Receipt chỉ xác nhận lưu trên thiết bị, lỗi storage có thao tác thử lại và không làm ngắt API campus. */
+/* // [TRÒ CHUYỆN TƯƠNG TÁC]: Typing ba chấm có nhịp nhẹ; reduced-motion giữ ba chấm tĩnh và không gây đọc lặp qua aria-live. */
+.mode-app .online-storage-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 10px 13px;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.mode-app .online-storage-error button {
+  flex-shrink: 0;
+  min-height: 34px;
+  border: 1px solid #fcd34d;
+  border-radius: 7px;
+  padding: 6px 10px;
+  color: #92400e;
+  background: white;
+  font-size: 10px;
+}
+.mode-app .online-message .online-delivery {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 9px;
+}
+.mode-app .online-delivery.is-failed button {
+  border: 0;
+  color: #be123c;
+  background: transparent;
+  font-size: 9px;
+  min-height: 25px;
+  padding: 2px 0;
+}
+.mode-app .online-typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  margin: 8px 0;
+  color: #64748b;
+}
+.mode-app .online-typing > span {
+  display: flex;
+  gap: 4px;
+  padding: 10px 11px;
+  border: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  border-radius: 10px 10px 10px 3px;
+}
+.mode-app .online-typing i {
+  width: 4px;
+  height: 4px;
+  background: #64748b;
+  border-radius: 50%;
+  animation: online-typing-dot 1.1s ease-in-out infinite;
+}
+.mode-app .online-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.mode-app .online-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.mode-app .online-typing small {
+  font-size: 9px;
+}
+.mode-app .online-review-history {
+  margin-top: 22px;
+}
+.mode-app .online-review-history > div:last-child {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.mode-app .online-review-history article {
+  border: 1px solid #e2e8f0;
+  padding: 15px;
+  border-radius: 11px;
+  background: #f8fafc;
+}
+.mode-app .online-review-history article > b {
+  display: block;
+  color: #0f172a;
+  font-size: 11px;
+}
+.mode-app .online-review-history article > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #92400e;
+  font-size: 11px;
+  margin-top: 8px;
+}
+.mode-app .online-review-history article > p {
+  color: #475569;
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+.mode-app .online-review-history article > small {
+  color: #64748b;
+  font-size: 9px;
+  display: block;
+  margin-top: 10px;
+}
+@keyframes online-typing-dot {
+  50% {
+    opacity: 0.35;
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-app .online-typing i {
+    animation: none;
+  }
+}
+@media (max-width: 600px) {
+  .mode-app .online-storage-error {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

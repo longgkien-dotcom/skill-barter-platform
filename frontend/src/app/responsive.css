@@ -1,0 +1,1099 @@
+/* // [SỬA TRÀN MOBILE]: Quy tắc co giãn nạp cuối; không sửa API, actor, state phòng, màu ngữ nghĩa hoặc hình học desktop >=1024px. */
+/* // [KIẾN TRÚC & THIẾT KẾ]: Chặn min-content mặc định của grid/flex/fieldset; vùng cần rộng như ledger được cuộn bên trong, không đẩy cả trang. */
+/* // [CẨN THẬN KHI SỬA]: Không dùng overflow:hidden để giấu tên/menu. Chỉ decor/canvas được clip; nội dung dài wrap và dialog/menu có vùng cuộn riêng. */
+.sidebar .nav-label-mobile {
+  display: none;
+}
+.site-experience :is(img, video, canvas) {
+  max-width: 100%;
+}
+.mode-app
+  :is(
+    .app-body,
+    .dashboard-main,
+    .workspace,
+    .workspace-stale,
+    .workspace-section,
+    .workspace-fieldset,
+    .panel,
+    .discovery-mode-content,
+    .online-room-main,
+    .online-chat,
+    .table-scroll
+  ) {
+  min-width: 0;
+}
+.mode-app .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.modal {
+  max-width: calc(100vw - 24px);
+}
+.modal :is(.form-grid, .form-actions, .modal-header) > * {
+  min-width: 0;
+}
+.modal :is(h2, p, label, legend) {
+  overflow-wrap: anywhere;
+}
+
+/* // [DANH TÍNH & POPOVER]: Danh sách co theo viewport, credit/check giữ cột riêng; mọi tên/vai trò được wrap thay vì cắt hoặc ellipsis. */
+@media (max-width: 1023px) {
+  .site-experience :is(fieldset, legend) {
+    min-width: 0;
+    min-inline-size: 0;
+    max-width: 100%;
+  }
+  .site-experience :is(input, select, textarea) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app .header .identity-popover {
+    left: 0;
+    right: auto;
+    width: min(340px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 160px);
+    overflow: hidden;
+    z-index: 100;
+  }
+  .mode-app .header .identity-popover-heading,
+  .mode-app .header .identity-popover-foot {
+    flex-shrink: 0;
+  }
+  .mode-app .header .identity-popover-heading {
+    gap: 8px;
+    padding: 10px 8px;
+  }
+  .mode-app .header .identity-popover-heading b {
+    font-size: 12px;
+  }
+  .mode-app .header .identity-options {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .mode-app .header .identity-option {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content 14px;
+    gap: 7px;
+    padding: 10px 7px;
+  }
+  .mode-app .header .identity-option > .identity-chip {
+    min-width: 0;
+    width: 100%;
+  }
+  .mode-app .header .identity-popover .identity-name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+  }
+  .mode-app .header .identity-popover .identity-name-row {
+    align-items: flex-start;
+  }
+  .mode-app .header .identity-popover .identity-verified-icon {
+    margin-top: 3px;
+  }
+  .mode-app .header .identity-popover .identity-meta {
+    font-size: 10px;
+    gap: 4px;
+  }
+  .mode-app .header .identity-popover .identity-role {
+    max-width: 100%;
+    white-space: normal;
+  }
+  .mode-app .header .identity-option-credit {
+    white-space: nowrap;
+    font-size: 11px;
+  }
+  .mode-app .header .identity-popover-foot {
+    padding: 8px 4px 2px;
+  }
+  .mode-app .header .profile-logout {
+    min-height: 44px;
+    white-space: normal;
+    font-size: 12px;
+  }
+  .mode-app .header .profile-logout > svg {
+    flex-shrink: 0;
+  }
+
+  /* // [HEADER & NAVIGATION]: Tablet dùng rail ngang giống phone; header hai hàng, không để sidebar 184px làm hẹp nội dung ở 768px. */
+  .mode-app .app-shell {
+    display: block;
+  }
+  .mode-app .live-workspace .app-body {
+    width: 100%;
+    margin-left: 0;
+  }
+  .mode-app .live-workspace .sidebar {
+    position: sticky;
+    inset: auto;
+    top: 0;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    z-index: 50;
+    overflow: visible;
+  }
+  .mode-app .sidebar :is(.brand, .sidebar-section, .sidebar-bottom) {
+    display: none;
+  }
+  .mode-app .sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    padding: 8px;
+    width: 100%;
+  }
+  .mode-app .sidebar .nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    min-height: 68px;
+    margin: 0;
+    padding: 7px 2px;
+    font-size: 11px;
+    line-height: 1.25;
+    font-weight: 500;
+    text-align: center;
+  }
+  .mode-app .sidebar .nav-label-desktop {
+    display: none;
+  }
+  .mode-app .sidebar .nav-label-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    align-items: center;
+    max-width: 100%;
+  }
+  .mode-app .sidebar .nav-label-mobile > span {
+    white-space: nowrap;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  .mode-app .sidebar .nav-item > svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+  .mode-app .sidebar .nav-item small {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    margin: 0;
+    font-size: 8px;
+    padding: 1px 4px;
+  }
+  .mode-app .live-workspace .header {
+    display: grid;
+    grid-template-areas: "identity status refresh" "metrics metrics metrics";
+    grid-template-columns: minmax(0, 1fr) 22px 38px;
+    align-items: center;
+    gap: 10px 8px;
+    padding: 12px;
+    position: relative;
+    top: auto;
+    width: 100%;
+    z-index: 60;
+  }
+  .mode-app .header .mobile-brand {
+    display: none;
+  }
+  .mode-app .header .identity-switcher {
+    grid-area: identity;
+    margin: 0;
+    min-width: 0;
+    width: fit-content;
+    max-width: 100%;
+  }
+  .mode-app .header .identity-capsule {
+    min-width: 0;
+    min-height: 50px;
+    width: auto;
+    max-width: 100%;
+    gap: 8px;
+    padding-right: 10px;
+  }
+  .mode-app .header .identity-capsule > .identity-chip {
+    flex: 1;
+    min-width: 0;
+  }
+  .mode-app .header .identity-capsule .identity-name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .mode-app .header .identity-chevron {
+    flex-shrink: 0;
+  }
+  .mode-app .header .command-context {
+    grid-area: status;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 22px;
+    min-width: 0;
+    flex-basis: auto;
+  }
+  .mode-app .header .command-breadcrumb {
+    display: none;
+  }
+  .mode-app .header .command-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    font-size: 0;
+    line-height: 0;
+    width: 14px;
+    height: 40px;
+  }
+  .mode-app .header .command-status > i {
+    width: 7px;
+    height: 7px;
+  }
+  .mode-app .header .header-refresh {
+    grid-area: refresh;
+    width: 38px;
+    height: 40px;
+    margin: 0;
+  }
+  .mode-app .header .wallet-strip {
+    grid-area: metrics;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .mode-app .header .command-metric {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 64px;
+    padding: 8px 10px;
+  }
+  .mode-app .header .standard-meter > span {
+    display: grid;
+    grid-template-columns: 12px minmax(0, 1fr);
+    gap: 3px 5px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+  .mode-app .header .standard-meter > span > svg {
+    width: 12px;
+    height: 12px;
+    margin-top: 1px;
+  }
+  .mode-app .header .standard-meter strong {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .mode-app .header .standard-meter .meter {
+    margin-top: 5px;
+  }
+  .mode-app .header .premium-mini,
+  .mode-app .header .trust {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .mode-app .header .command-metric .tiny {
+    min-width: 0;
+    font-size: 9px;
+    gap: 4px;
+    white-space: normal;
+  }
+  .mode-app .header .command-metric .tiny > svg {
+    flex-shrink: 0;
+  }
+  .mode-app .header .command-metric strong {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    font-variant-numeric: tabular-nums;
+  }
+  .mode-app .header .premium-mini strong,
+  .mode-app .header .trust strong {
+    font-size: 16px;
+  }
+  .mode-app .header .command-metric strong small {
+    font-size: 9px;
+  }
+
+  /* // [KHÁM PHÁ & FORM]: Mọi grid track dùng minmax(0,1fr), label/input bỏ min-width cố định; filter dài wrap trong container. */
+  .mode-app .dashboard-main {
+    width: 100%;
+    padding: 24px 20px;
+  }
+  .mode-app
+    :is(.page-heading, .section-heading, .session-top, .dispute-heading) {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .mode-app
+    :is(.page-heading, .section-heading, .session-top, .dispute-heading)
+    > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app :is(h1, h2, h3, p, .breadcrumb, .meta-line, .badge, .eyeline) {
+    overflow-wrap: anywhere;
+  }
+  .mode-app :is(.breadcrumb, .eyeline, .vote-labels) {
+    flex-wrap: wrap;
+  }
+  .mode-app .discovery-modebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+  .mode-app .discovery-modebar > button {
+    min-width: 0;
+    max-width: 100%;
+    gap: 8px;
+    padding: 11px 10px;
+    font-size: 11px;
+    line-height: 1.6;
+    white-space: normal;
+  }
+  .mode-app .discovery-modebar > button > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .mode-app .discovery-modebar > button > svg {
+    flex-shrink: 0;
+  }
+  .mode-app .discovery-modebar small {
+    flex-shrink: 0;
+    font-size: 7px;
+  }
+  .mode-app .discovery-search-line {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .mode-app .discovery-search {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  .mode-app .discovery-search input {
+    min-width: 0;
+    width: 100%;
+  }
+  .mode-app .discovery-search > svg {
+    flex-shrink: 0;
+  }
+  .mode-app .discovery-filter-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+  }
+  .mode-app .discovery-filter-controls > svg {
+    display: none;
+  }
+  .mode-app .discovery-filter-controls > label {
+    min-width: 0;
+    width: 100%;
+  }
+  .mode-app .discovery-filter-controls select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .mode-app .discovery-category-pills {
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
+    gap: 7px;
+  }
+  .mode-app .discovery-category-pills button {
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .mode-app .discovery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mode-app :is(.coordinates, .radius-row, .quick-online-promo) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app .coordinates > label {
+    min-width: 0;
+  }
+  .mode-app .quick-online-promo > div {
+    min-width: 0;
+  }
+  .mode-app .wallet-tools,
+  .mode-app .dispute-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .wallet-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .mode-app .voucher-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mode-app
+    :is(
+      .wallet-tools,
+      .wallet-kpis,
+      .voucher-grid,
+      .session-list,
+      .dispute-list,
+      .form-grid
+    )
+    > * {
+    min-width: 0;
+  }
+  .mode-app .table-scroll table {
+    min-width: 560px;
+  }
+  .mode-app
+    :is(
+      .session-party,
+      .dispute-contract,
+      .dispute-vote,
+      .dispute-parties,
+      .action-form,
+      .vote-actions,
+      .secondary-actions,
+      .custom-topup
+    ) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app :is(.session-party, .dispute-parties) .identity-chip {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app
+    :is(
+      .session-meta,
+      .session-people,
+      .secondary-actions,
+      .action-row,
+      .vote-actions,
+      .quick-topups
+    ) {
+    flex-wrap: wrap;
+  }
+  .mode-app .action-row > input,
+  .mode-app .custom-topup > label {
+    min-width: 0;
+    flex: 1 1 180px;
+  }
+  .mode-app .session-progress li {
+    min-width: 0;
+  }
+  .mode-app .session-progress small {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  /* // [ONLINE MOBILE]: Giữ PiP desktop/fullscreen. Phòng thường dưới 1024px xếp partner rồi self-preview; chat và HUD ở hàng riêng. */
+  .mode-app .online-lobby-grid,
+  .mode-app .online-room-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .online-topics > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+  .mode-app .online-topics button {
+    max-width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    white-space: normal;
+    text-align: left;
+    overflow-wrap: anywhere;
+    font-size: 11px;
+  }
+  .mode-app .online-topics button > svg {
+    flex-shrink: 0;
+  }
+  .mode-app .online-role-picker > div,
+  .mode-app .online-duration > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .mode-app .online-duration button,
+  .mode-app .online-role-picker button {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .mode-app .online-hud {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .mode-app .online-hud > * {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+  }
+  .mode-app
+    .online-room-main
+    .online-video-stage:not(.is-expanded):not(:fullscreen) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
+    min-height: 0;
+    height: auto;
+    aspect-ratio: auto;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    > .remote-video {
+    position: relative;
+    inset: auto;
+    grid-row: 1;
+    width: 100%;
+    height: 340px;
+    min-height: 0;
+    border: 1px solid #1e293b;
+    border-radius: 14px;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    .remote-video
+    .online-video-center {
+    min-height: 0;
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    .remote-video
+    .online-video-identity {
+    position: absolute;
+    left: 0;
+    top: 52px;
+    bottom: auto;
+    max-width: 100%;
+    padding: 8px 14px;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    .remote-video
+    .online-school {
+    display: none;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    .online-local-wrapper {
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    width: 100%;
+    height: 160px;
+    min-height: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .mode-app
+    .online-video-stage:not(.is-expanded):not(:fullscreen)
+    .online-self-camera {
+    top: 35px;
+    bottom: 48px;
+  }
+  .mode-app .online-preview-restore {
+    right: 12px;
+    bottom: 12px;
+  }
+  .mode-app .online-room-actions {
+    flex-wrap: wrap;
+  }
+  .mode-app .online-chat {
+    width: 100%;
+    max-width: 100%;
+  }
+  .mode-app .online-chat-heading {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mode-app .online-chat-messages {
+    width: 100%;
+    max-height: 300px;
+    min-height: 180px;
+  }
+  .mode-app .online-chat-form {
+    display: flex;
+    min-width: 0;
+  }
+  .mode-app .online-chat-form input {
+    flex: 1;
+    width: 0;
+    min-width: 0;
+  }
+  .mode-app .online-chat-form button {
+    flex-shrink: 0;
+  }
+  .mode-app .online-message {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .mode-app .online-contract-strip > div {
+    min-width: 0;
+  }
+  .mode-app .online-clock {
+    flex-wrap: wrap;
+  }
+
+  /* // [DIALOG & CHATBOT]: Native dialog cuộn trong 90dvh, cửa sổ hỗ trợ nằm trong visualViewport và safe-area; footer form luôn tới được bằng Tab/cuộn. */
+  .modal {
+    width: min(580px, calc(100vw - 24px));
+    max-height: min(90dvh, calc(100dvh - 24px));
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+  }
+  .modal .modal-header,
+  .modal .form {
+    padding: 20px;
+  }
+  .modal .modal-header {
+    gap: 12px;
+  }
+  .modal .modal-header > div {
+    min-width: 0;
+  }
+  .modal .modal-header > .icon-button {
+    flex-shrink: 0;
+  }
+  .modal .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .modal .form-actions {
+    flex-wrap: wrap;
+  }
+  .modal .student-account {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .modal .student-account-identity {
+    min-width: 0;
+  }
+  .modal .student-account .identity-name {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+  .support-widget {
+    right: 12px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .support-widget .support-window {
+    position: fixed;
+    right: 12px;
+    bottom: calc(
+      var(--support-keyboard-offset, 0px) +
+        max(16px, env(safe-area-inset-bottom)) + 64px
+    );
+    width: min(400px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    height: 500px;
+    max-height: calc(
+      var(--support-viewport-height, 100dvh) -
+        max(16px, env(safe-area-inset-bottom)) - 76px
+    );
+  }
+  .support-widget
+    :is(
+      .support-log,
+      .support-composer,
+      .support-message,
+      .support-ticket,
+      .support-receipt,
+      .support-draft-history
+    ) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .support-widget :is(p, b, h2, h3, label, button) {
+    overflow-wrap: anywhere;
+  }
+  .support-widget .support-header {
+    gap: 7px;
+    padding: 13px 10px;
+  }
+  .support-widget .support-header > div {
+    min-width: 0;
+  }
+  .support-widget .support-header > button {
+    flex-shrink: 0;
+  }
+  .support-widget .support-tools {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .support-widget .support-ticket-buttons {
+    flex-wrap: wrap;
+  }
+  .support-widget .support-draft-history > button > span {
+    min-width: 0;
+  }
+  .support-widget .support-draft-history > button > svg {
+    flex-shrink: 0;
+  }
+
+  /* // [LANDING MOBILE]: Co grid thật, giữ decor clip bên trong hero; không thay nội dung, CTA đăng nhập hoặc hiệu ứng desktop. */
+  .mode-story
+    :is(
+      .story-section,
+      .story-values-strip,
+      .intro-editorial,
+      .origin-grid,
+      .story-how,
+      .story-bento,
+      .story-stat-grid
+    ) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-story .story-section {
+    padding-inline: 24px;
+  }
+  .mode-story .story-how {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+  .mode-story .story-how-aside {
+    position: static;
+  }
+  .mode-story .story-section-heading {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .mode-story .story-values-strip {
+    flex-wrap: wrap;
+    padding-inline: 24px;
+  }
+  .mode-story .story-values-strip > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-story
+    :is(
+      .origin-problem,
+      .origin-solution,
+      .story-bento-card,
+      .cap-preview,
+      .campus-map-preview,
+      .timeline-preview
+    ) {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-story :is(h1, h2, h3, p, button) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 639px) {
+  .mode-app .dashboard-main {
+    padding: 22px 12px;
+  }
+  .mode-app .workspace-section,
+  .mode-app .discovery-grid > .workspace-section {
+    padding: 16px;
+  }
+  .mode-app .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .mode-app .page-heading h1 {
+    font-size: clamp(26px, 7.5vw, 36px);
+    line-height: 1.35;
+  }
+  .mode-app .section-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mode-app .section-heading > .button,
+  .mode-app .section-heading > label {
+    width: 100%;
+  }
+  .mode-app .discovery-modebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .discovery-modebar > button {
+    justify-content: flex-start;
+    min-height: 48px;
+  }
+  .mode-app .discovery-modebar small {
+    margin-left: auto;
+  }
+  .mode-app .discovery-search-line {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mode-app .discovery-search {
+    flex-basis: auto;
+    width: 100%;
+    padding-inline: 10px;
+  }
+  .mode-app .discovery-filter-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .skill-grid,
+  .mode-app .wallet-kpis,
+  .mode-app .voucher-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .skill-card .skill-person {
+    min-width: 0;
+  }
+  .mode-app
+    :is(
+      .coordinates,
+      .radius-row,
+      .custom-topup,
+      .eligibility,
+      .dispute-heading,
+      .session-top
+    ) {
+    flex-wrap: wrap;
+  }
+  .mode-app .radius-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mode-app .radius-row > label,
+  .mode-app .radius-row > button {
+    width: 100%;
+    flex: auto;
+  }
+  .mode-app .nearby-panel {
+    padding: 14px;
+  }
+  .mode-app .panel.session-card,
+  .mode-app .panel.dispute-card {
+    padding: 16px;
+  }
+  .mode-app .session-controls {
+    margin: 16px -16px -16px;
+    padding: 16px;
+  }
+  .mode-app .session-people {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+  .mode-app .session-party {
+    width: 100%;
+  }
+  .mode-app .session-meta > strong {
+    margin-left: 0;
+  }
+  .mode-app .session-progress small {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+  .mode-app
+    :is(
+      .action-row,
+      .secondary-actions,
+      .vote-actions,
+      .custom-topup,
+      .online-room-actions
+    ) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+  }
+  .mode-app
+    :is(.action-row, .secondary-actions, .vote-actions, .online-room-actions)
+    > button {
+    width: 100%;
+    white-space: normal;
+  }
+  .mode-app .action-row > input,
+  .mode-app .custom-topup > label {
+    flex: auto;
+    width: 100%;
+  }
+  .mode-app .eligibility > .badge {
+    margin-left: 0;
+  }
+  .mode-app .dispute-parties {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .mode-app .voucher-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .voucher-card .voucher-art {
+    width: 100%;
+    min-height: 100px;
+  }
+  .mode-app .credit-select {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mode-app .online-room,
+  .mode-app .online-lobby,
+  .mode-app .online-lobby-aside,
+  .mode-app .online-finished {
+    padding: 16px;
+  }
+  .mode-app .online-role-picker > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .online-role-picker button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mode-app .online-match-button {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+  .mode-app .online-match-button > span {
+    min-width: 0;
+  }
+  .mode-app .online-match-button > svg {
+    flex-shrink: 0;
+  }
+  .mode-app .online-hud {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mode-app .online-clock,
+  .mode-app .online-escrow,
+  .mode-app .online-exchange-turn {
+    grid-column: 1 / -1;
+  }
+  .mode-app .online-connection {
+    margin-left: 0;
+  }
+  .mode-app .online-room-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mode-app .online-contract-strip {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+  }
+  .mode-app .online-contract-strip > button {
+    grid-column: 2;
+    margin-left: 0;
+    white-space: normal;
+  }
+  .mode-app .online-finished-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mode-app .online-finished-actions {
+    align-items: stretch;
+  }
+  .mode-app .online-finished-actions > button {
+    width: 100%;
+    white-space: normal;
+  }
+  .modal .form,
+  .modal .modal-header {
+    padding: 16px;
+  }
+  .modal .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .modal .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .modal .form-actions > button {
+    width: 100%;
+    white-space: normal;
+  }
+  .modal .online-rating {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .modal .online-rating button {
+    width: 100%;
+    min-width: 0;
+  }
+  .modal .online-rating button > svg {
+    max-width: 100%;
+  }
+  .mode-story
+    :is(.intro-editorial, .origin-grid, .story-bento, .story-stat-grid) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .mode-story .intro-editorial > div:last-child {
+    padding-top: 0;
+  }
+  .mode-story .bento-cap-wrap {
+    grid-row: auto;
+  }
+  .mode-story .story-section {
+    padding: 60px 16px;
+  }
+  .mode-story .story-section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mode-story :is(.origin-problem, .origin-solution, .story-bento-card) {
+    padding: 22px;
+  }
+  .mode-story .story-hero h1 {
+    font-size: clamp(30px, 8.4vw, 52px);
+  }
+  .mode-story .story-hero .hero-actions {
+    flex-wrap: wrap;
+  }
+  .mode-story .story-hero .hero-actions > * {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
