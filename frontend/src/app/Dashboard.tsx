@@ -33,6 +33,7 @@ import type {
 // [HIỆU ỨNG CHUYỂN ĐỘNG]: Chuyển tab bằng AnimatePresence, reduced-motion giữ nguyên; không thêm hiệu ứng vào chuỗi tiếng Việt.
 // [KẾT NỐI API]: Callback run/onRefresh/onSwitchUser nối về Home như trước; không thay endpoint, payload, ledger hoặc quyền xác thực.
 // [CẨN THẬN KHI SỬA]: Không mount component này khi chưa có phiên; giữ key user và lọc ledger theo owner để tránh trộn tài khoản.
+// [GHIM KHI CUỘN]: app-shell dùng cuộn tài liệu; app-body không tạo scroll container phụ, Sidebar và Header sticky độc lập trong cùng viewport.
 // [ĐIỂM MỞ RỘNG]: Có thể tách tab thành route con sau này; gate xác thực và phạm vi chatbot phải giữ ở ranh giới workspace.
 interface DashboardProps {
   data: {

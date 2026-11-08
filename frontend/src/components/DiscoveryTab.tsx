@@ -28,7 +28,7 @@ import type {
   WorkspaceProps,
   User,
 } from "../lib/types";
-import { BusyLabel, Empty, Modal, Panel } from "./ui";
+import { ActionButton, BusyLabel, Empty, Modal, Panel } from "./ui";
 import IdentityChip from "./IdentityChip";
 import OnlineBarter from "./OnlineBarter";
 
@@ -42,6 +42,7 @@ import OnlineBarter from "./OnlineBarter";
 // [GIAO DIỆN HỌC ONLINE OMEGLE]: Sub-view campus/online dùng chung Discovery; phòng mock nhận roster nhưng không chạm escrow hoặc Session thật.
 // [HỆ THỐNG MÀU LUMINOUS NAVY]: Toolbar tìm kiếm và carousel danh mục có trạng thái active rõ; card sáng hơn container và có giá 1 CR/giờ.
 // [SỬA TRÀN MOBILE]: Mode bar dùng grid 1/2 cột, search/filter có min-width:0 và category wrap; không đổi bộ lọc, channel hoặc endpoint hiện có.
+// [TƯƠNG PHẢN CTA]: ActionButton khóa navy/trắng cho OFFER hợp lệ; kỹ năng của mình, NEED và busy luôn dùng slate/chữ đậm rõ, kể cả khi fieldset khóa.
 const localDate = (value: Date) =>
   new Date(value.getTime() - value.getTimezoneOffset() * 60000)
     .toISOString()
@@ -383,8 +384,14 @@ export default function DiscoveryTab({
                             }
                           />
                         </div>
-                        <button
-                          className="button skill-book"
+                        <ActionButton
+                          className="skill-book"
+                          variant={
+                            skill.user_id === user.id ||
+                            skill.skill_type !== "OFFER"
+                              ? "muted"
+                              : "primary"
+                          }
                           disabled={
                             busy ||
                             skill.user_id === user.id ||
@@ -398,7 +405,7 @@ export default function DiscoveryTab({
                               ? "Đang tìm người hướng dẫn"
                               : "Đặt lịch học"}
                           <ArrowRight size={16} />
-                        </button>
+                        </ActionButton>
                       </Panel>
                     );
                   })}
@@ -440,9 +447,12 @@ export default function DiscoveryTab({
                       Ghép theo chủ đề, luyện tập và ghi lại mục tiêu của bạn.
                     </p>
                   </div>
-                  <button type="button" onClick={() => switchChannel("online")}>
+                  <ActionButton
+                    variant="secondary"
+                    onClick={() => switchChannel("online")}
+                  >
                     Tham gia Phòng Ghép Đôi Online ngay <ArrowRight size={15} />
-                  </button>
+                  </ActionButton>
                 </div>
                 <Panel className="nearby-panel">
                   <div className="nearby-label">
@@ -503,9 +513,13 @@ export default function DiscoveryTab({
                         />
                         <span>km</span>
                       </label>
-                      <button className="button secondary" disabled={busy}>
+                      <ActionButton
+                        type="submit"
+                        variant="secondary"
+                        disabled={busy}
+                      >
                         Tìm gần đây <Search size={14} />
-                      </button>
+                      </ActionButton>
                     </div>
                   </form>
                   <small>Tọa độ mặc định: khu vực ĐHQG TP.HCM.</small>
@@ -539,8 +553,9 @@ export default function DiscoveryTab({
                             <b>{zone.distance_km.toFixed(2)} km</b>
                           )}
                         </div>
-                        <button
+                        <ActionButton
                           className="copy-qr"
+                          variant="secondary"
                           disabled={busy}
                           onClick={() =>
                             void run(async () => {
@@ -557,7 +572,7 @@ export default function DiscoveryTab({
                         >
                           <Copy size={14} /> Sao chép mã QR
                           <ArrowRight size={13} />
-                        </button>
+                        </ActionButton>
                       </div>
                     </Panel>
                   ))}

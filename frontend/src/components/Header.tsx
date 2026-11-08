@@ -28,6 +28,7 @@ import IdentityMenu from "./IdentityMenu";
 // [TRỢ LÝ CHATBOT 24/7]: Header dùng cùng activeUser với chatbot; số dư và Trust luôn lấy snapshot API, không tạo dữ liệu mẫu.
 // [BỘ CÂU HỎI & TRẢ LỜI TỰ ĐỘNG]: Quy tắc hướng dẫn nằm trong SupportChatbot; Header không chứa hay gọi engine trả lời.
 // [SỬA TRÀN MOBILE]: Dưới 1024px dùng grid: identity bên trái, status/refresh bên phải, KPI ba cột ở hàng thứ hai; desktop giữ bố cục cũ.
+// [GHIM KHI CUỘN]: Command bar sticky top:0 trên desktop, nằm dưới thanh bốn tab trên mobile; giữ ví và hồ sơ trong tầm nhìn.
 export default function Header({
   users,
   user,

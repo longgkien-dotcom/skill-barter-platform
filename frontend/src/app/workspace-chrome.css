@@ -3,6 +3,10 @@
 /* // [BỘ CÂU HỎI & TRẢ LỜI TỰ ĐỘNG]: Knowledge base nằm trong SupportChatbot; CSS chỉ hiển thị, không sửa quyền hoặc API. */
 /* // [CẨN THẬN KHI SỬA]: Capsule tối và popover sáng có token khác nhau; giữ contrast logout, focus và layout mobile khi thêm metric. */
 .mode-app .live-workspace .header {
+  /* [GHIM HEADER]: Theo cùng vùng cuộn tài liệu với workspace; không bọc app-body bằng overflow:auto/hidden. */
+  position: sticky;
+  top: 0;
+  z-index: 30;
   color-scheme: light;
   --heading: #090b10;
   --body: #475569;
@@ -284,6 +288,42 @@
   scrollbar-color: #4e6796 #15264d;
   --bg-surface: rgba(255, 255, 255, 0.08);
   --border: rgba(255, 255, 255, 0.15);
+}
+/* [GHIM SIDEBAR DESKTOP]: Rail luôn cao bằng viewport; màn hình thấp cuộn riêng để vẫn tới được nút đăng xuất. */
+@media (min-width: 1024px) {
+  .mode-app .app-shell {
+    display: flex;
+    align-items: flex-start;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .mode-app .live-workspace .sidebar {
+    position: sticky;
+    inset: auto;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    flex: 0 0 var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  .mode-app .sidebar > * {
+    flex-shrink: 0;
+  }
+  .mode-app .sidebar-bottom {
+    margin-top: auto;
+  }
+  .mode-app .live-workspace .app-body {
+    flex: 1 1 0%;
+    min-width: 0;
+    margin-left: 0;
+    overflow: visible;
+  }
 }
 .mode-app .sidebar .brand-mark {
   background: rgba(255, 255, 255, 0.1);

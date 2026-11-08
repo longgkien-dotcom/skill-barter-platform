@@ -30,6 +30,7 @@ import type { Tab } from "../lib/types";
 // [BỘ CÂU HỎI & TRẢ LỜI TỰ ĐỘNG]: Muốn thêm hướng dẫn sidebar hãy sửa knowledge base tại SupportChatbot, không sửa API hoặc nhãn TABS.
 const icons = [Compass, BookOpen, Scale, Wallet];
 // [SỬA TRÀN MOBILE]: Nhãn ngắn có đúng hai dòng, bốn ô cùng chiều cao; aria-label luôn giữ tên nghiệp vụ đầy đủ.
+// [GHIM KHI CUỘN]: Desktop dùng rail sticky 100dvh trong app-shell; các khối không co, vùng thừa nằm trước sidebar-bottom và nội dung dài cuộn trong rail.
 const mobileLabels: Record<Tab, readonly [string, string]> = {
   discovery: ["Khám phá", "Điểm hẹn"],
   sessions: ["Phiên học", "Ký quỹ"],

@@ -8,11 +8,11 @@
 /* // [KẾT NỐI API]: Màu trạng thái phản ánh snapshot API; .workspace-stale và disabled chặn thao tác trên dữ liệu mất đồng bộ. */
 /* // [CẨN THẬN KHI SỬA]: Giữ nguyên bốn mã accent gốc; nhãn trên nền tối dùng biến thể sáng tương ứng. Input/option/modal phải luôn có nền và màu chữ tường minh. */
 /* // [ĐIỂM MỞ RỘNG]: Theme mới nên thay token semantic; không thêm màu rời rạc vào từng component. Có thể tự host font qua @font-face. */
-/* // [SỬA TRÀN MOBILE]: Chặn canvas/glow gây cuộn ngang; responsive.css sửa kích thước thật của nội dung, không dựa vào overflow để che chữ. */
+/* // [SỬA TRÀN MOBILE]: Clip decor ngang mà không tạo scroll container phụ; body overflow:hidden sẽ làm sidebar/header sticky bám sai vùng cuộn. */
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 :root {
   color-scheme: dark;

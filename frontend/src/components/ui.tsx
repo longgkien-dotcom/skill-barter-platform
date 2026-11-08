@@ -6,10 +6,12 @@ import {
   useEffect,
   useId,
   useRef,
+  type ButtonHTMLAttributes,
   type ReactNode,
 } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Inbox, LoaderCircle, X } from "lucide-react";
+import styles from "./ui.module.css";
 
 // [KIẾN TRÚC & THIẾT KẾ]: Thành phần nền dùng chung: card kính navy bo 16px, border slate và khoảng cách theo nhịp 4px.
 // [HIỆU ỨNG CHUYỂN ĐỘNG]: Card reveal một lần và nâng 3px khi hover; tắt dịch chuyển khi reduced-motion.
@@ -19,6 +21,24 @@ import { Inbox, LoaderCircle, X } from "lucide-react";
 // [ĐIỂM MỞ RỘNG]: Có thể gắn uploader hoặc camera trong Modal mà giữ nguyên cơ chế focus.
 // [SỬA TRÀN MOBILE]: Dialog dùng native focus trap và vùng cuộn giới hạn 90dvh; form/grid/buttons co về một cột qua responsive.css, không thay submit/API.
 export const ActionErrorContext = createContext("");
+// [NÚT HÀNH ĐỘNG]: Variant đặt màu tường minh; :disabled cũng nhận khóa từ fieldset để busy không tạo chữ trắng trên nền trắng.
+// [CẨN THẬN KHI SỬA]: Mặc định type=button; nút gửi form phải truyền type=submit để giữ đúng luồng API hiện tại.
+export function ActionButton({
+  variant = "primary",
+  type = "button",
+  className = "",
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "primary" | "secondary" | "muted";
+}) {
+  return (
+    <button
+      {...props}
+      type={type}
+      className={`button ${styles.action} ${styles[variant]} ${className}`}
+    />
+  );
+}
 export function Panel({
   children,
   className = "",

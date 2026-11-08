@@ -1,0 +1,62 @@
+/* [TƯƠNG PHẢN HÀNH ĐỘNG]: CSS Module khóa màu chữ/nền cùng nhau, không phụ thuộc token sáng/tối của card hoặc thứ tự các theme toàn cục. */
+:global(.mode-app) button.action:is(.primary, .secondary, .muted) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  opacity: 1;
+}
+:global(.mode-app) button.action.primary {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+}
+:global(.mode-app) button.action.primary:hover:enabled {
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+:global(.mode-app) button.action.secondary {
+  background: #eff6ff;
+  color: #1e3a8a;
+  border-color: #bfdbfe;
+  font-weight: 500;
+}
+:global(.mode-app) button.action.secondary:hover:enabled {
+  background: #dbeafe;
+  color: #1e3a8a;
+  border-color: #93c5fd;
+}
+:global(.mode-app) button.action.muted,
+:global(.mode-app) button.action:is(.primary, .secondary, .muted):disabled {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #cbd5e1;
+  font-weight: 500;
+  box-shadow: none;
+  opacity: 1;
+}
+:global(.mode-app) button.action:disabled {
+  cursor: not-allowed;
+}
+:global(.mode-app) button.action:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+:global(.mode-app) button.action > svg {
+  flex-shrink: 0;
+  color: inherit;
+}

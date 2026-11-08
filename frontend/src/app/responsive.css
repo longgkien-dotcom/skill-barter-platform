@@ -128,6 +128,7 @@
 
   /* // [HEADER & NAVIGATION]: Tablet dùng rail ngang giống phone; header hai hàng, không để sidebar 184px làm hẹp nội dung ở 768px. */
   .mode-app .app-shell {
+    --workspace-nav-height: 85px;
     display: block;
   }
   .mode-app .live-workspace .app-body {
@@ -207,8 +208,9 @@
     align-items: center;
     gap: 10px 8px;
     padding: 12px;
-    position: relative;
-    top: auto;
+    /* [GHIM HEADER MOBILE]: Thanh bốn tab cao 68px + padding 16px + viền 1px; ví/hồ sơ bám ngay dưới thanh này. */
+    position: sticky;
+    top: var(--workspace-nav-height);
     width: 100%;
     z-index: 60;
   }
